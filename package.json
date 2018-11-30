@@ -1,0 +1,33 @@
+{
+    "name": "contact-list-react",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "chai-json": "^1.0.0",
+        "form-data": "^2.3.3",
+        "react": "^16.6.3",
+        "react-bootstrap": "^0.32.4",
+        "react-dom": "^16.6.3",
+        "react-scripts": "2.1.1",
+        "request": "^2.88.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "mocha --reporter dot",
+        "coverage": "nyc --reporter html --reporter text npm test"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ],
+    "devDependencies": {
+        "mocha": "^5.2.0",
+        "nyc": "^13.1.0"
+    }
+}

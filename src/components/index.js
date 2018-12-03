@@ -29,8 +29,16 @@ export class ContactListApp extends React.Component {
     async retrieveContactList() {
         this.setState({ isLoading: true });
         let retrievedContacts = await RetrieveContacts();
-        //console.log('retrievedContacts=' + retrievedContacts);
+        
         //console.log(JSON.stringify(retrievedContacts));
+        if(retrievedContacts.results && retrievedContacts.results.length <1) {
+            // If there are no contacts yet, server returns:
+            // {"resultCount":0,"results":[]}
+            retrievedContacts = [];
+        }
+        // Else, it returns an array of Contact objects as JSON, 
+        // but not the resultCount nor result fields.
+        //console.log('retrievedContacts after check=' + JSON.stringify(retrievedContacts));
         this.setState({ isLoading: false, contacts: retrievedContacts });
     }
 
@@ -82,9 +90,10 @@ export class ContactListApp extends React.Component {
             this.dataSent = true;
             // Upload new contact information.
             const completeContact = await newContact.uploadContactInformation();
-            //console.log('completeContact=' + JSON.stringify(completeContact));
-            const contactList = this.state.contacts.slice();
+            console.log('completeContact=' + JSON.stringify(completeContact));
+            console.log('contacts='+JSON.stringify(this.state.contacts));
 
+            const contactList = this.state.contacts.slice();
 
             // Update contact list.
             this.setState({ contacts: contactList.concat(completeContact), errorMessage: null });
@@ -96,7 +105,9 @@ export class ContactListApp extends React.Component {
     handleImage = (e) => {
         this.image = e.target.files[0];
         if (this.image) {
+            //console.log('image name=' + this.image.name);
             let cutName = this.image.name.split('.');
+            //console.log('cutName=' + cutName);
             this.imageExtension = cutName[cutName.length - 1];
             let validExtensions = ['png', 'jpg', 'gif', 'jpeg'];
 
@@ -115,42 +126,46 @@ export class ContactListApp extends React.Component {
         if (this.state.contacts && this.state.contacts.length > 0) {
             return ( 
                 <Grid>
-                    <Row>
-                        <PageHeader> Contact List Application </PageHeader>     
-                    </Row> 
-                    <Row>
-                        <p className = "error" > <b> { this.state.errorMessage } </b></p>
-                    </Row>    
-                    <Row>
-                        <AddContactForm addContact = { this.addContact }
-                            handleImage = { this.handleImage }
-                            dataSent = { this.dataSent }
-                        />   
-                    </Row> 
-                    <Row>
-                    </Row>
-                    <Row>
-                        <ContactList contacts = { this.state.contacts }/>   
-                    </Row> 
+                <Row>
+                    <PageHeader> Contact List Application </PageHeader>      
+                </Row> 
+                <Row>
+                    <p className = "error"> <b> { this.state.errorMessage } </b></p>
+                </Row>     
+                <Row>
+                    <AddContactForm addContact = { this.addContact }
+                    handleImage = { this.handleImage }
+                    dataSent = { this.dataSent }
+                    />    
+                </Row> 
+                <Row>
+                </Row> 
+                <Row>
+                    <ContactList contacts = { this.state.contacts }
+                    />    
+                </Row> 
                 </Grid> 
             );
         } else {
             return ( 
                 <Grid>
-                    <Row>
-                        <PageHeader> Contact List Application </PageHeader>     
-                    </Row>  
-                    <Row>
-                        <p className = "error" > <b> { this.state.errorMessage } </b></p>
-                    </Row>   
-                    <Row>
-                        <AddContactForm addContact = { this.addContact }/>   
-                    </Row> 
-                    <Row>
-                    </Row> 
-                    <Row>
-                        There are no contacts to display. 
-                    </Row>     
+                <Row>
+                    <PageHeader> Contact List Application </PageHeader>      
+                </Row> 
+                <Row>
+                    <p className = "error"> <b> { this.state.errorMessage } </b></p>
+                </Row>          
+                <Row>
+                    <AddContactForm addContact = { this.addContact }
+                    handleImage = { this.handleImage }
+                    dataSent = { this.dataSent }
+                    />    
+                </Row>
+                <Row>
+                </Row> 
+                <Row>
+                    There are no contacts to display. 
+                </Row>
                 </Grid>
             );
         }

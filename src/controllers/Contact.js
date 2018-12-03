@@ -25,14 +25,14 @@ export class Contact {
             "last_name": this.last_name,
             "phone": this.phone,
         });
-        //console.log('jsonToSend:' + jsonToSend);
+        console.log('jsonToSend:' + jsonToSend);
 
         let formData = new FormData();
         formData.append('contactPicFile', this.imageFile);
         formData.append('contact', jsonToSend);
 
         let urlForPost = LAMBDA_SERVICE_URL + '?format=' + imageExtension;
-        //console.log('urlForPost=' + urlForPost);
+        console.log('urlForPost=' + urlForPost);
 
         const response = await fetch(urlForPost, {
             method: 'POST',

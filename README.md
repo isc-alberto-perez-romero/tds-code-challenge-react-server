@@ -1,3 +1,42 @@
+## Important note about configuration file:
+After installing the application, you will also need to set up a configuration file located in:
+
+`/src/config/config.js`
+
+Such file contains the following:
+
+`// ==========================`
+
+`// EC2 service URL`
+
+`// Insert the EC2 service URL between the single quotes (for example, 'http://myservice.com:8080).`
+
+`// Such service should return all the existing contacts in a JSON array in the HTTP response.`
+
+`//===========================`
+
+`export const EC2_SERVICE_URL = process.env.EC2_SERVICE_URL || 'Insert EC2 service URL';`
+
+`// ==========================`
+
+`// Lambda service URL`
+
+`// Insert the Lambda service URL between the quotes.`
+
+`// Such service receives a POST request with the contact's picture`
+
+`// and a JSON string in the body, with all the information provided;`
+
+`//  and returns another JSON containing the inserted object with all`
+
+`//  the remaining information (image S3 url, thumbnail S3 url, and contact_id).`
+
+`//===========================`
+
+`export const LAMBDA_SERVICE_URL = process.env.LAMBDA_SERVICE_URL || 'Insert LAMBDA service URL.';`
+
+_____________________________________________
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

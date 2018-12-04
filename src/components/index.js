@@ -6,8 +6,6 @@ import AddContactForm from './AddContactForm';
 import Contact from '../controllers/Contact';
 import RetrieveContacts from '../controllers/RetrieveContacts';
 
-import defaultUserImage from '../defaultUserImage.png';
-
 export class ContactListApp extends React.Component {
 
     constructor(props) {
@@ -60,14 +58,6 @@ export class ContactListApp extends React.Component {
 
         if ((firstName && firstName.length > 0) || (lastName && lastName.length > 0)) {
             // At the very least, the user is adding a part of a name, so go ahead.
-
-
-            // If no image was uploaded, set default profile image.
-            if (!img || img === null) {
-                img = defaultUserImage;
-                //console.log('Setting img to:' + img);
-                this.imageExtension = 'png';
-            }
 
             // Create a new contact.
             let newContact = new Contact(

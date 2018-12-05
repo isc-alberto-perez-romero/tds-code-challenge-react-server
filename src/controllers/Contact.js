@@ -25,20 +25,41 @@ export class Contact {
 	} else {
 	  imageExtension = 'png';
 	}
+
         // Send contact information into another service...
+	let formData = new FormData();
+        formData.append('contactPicFile', this.imageFile);
+
+	// Option A (preferred): Send contact information as a JSON object,
+	// and insert it into the FormData:
         let jsonToSend = JSON.stringify({
             "first_name": this.first_name,
             "last_name": this.last_name,
             "phone": this.phone,
         });
         console.log('jsonToSend:' + jsonToSend);
-
-        let formData = new FormData();
-        formData.append('contactPicFile', this.imageFile);
         formData.append('contact', jsonToSend);
 
-        let urlForPost = LAMBDA_SERVICE_URL + '?format=' + imageExtension;
-        console.log('urlForPost=' + urlForPost);
+
+	let urlForPost = LAMBDA_SERVICE_URL + '?format=' + imageExtension;
+
+	// Option B (proven in PROD): Send contact information in the query
+	// String:
+	/*let extraParam = '';
+	
+	if(this.first_name){
+	  extraParam  = encodeURIComponent(this.first_name);
+	  urlForPost += '&first_name='+extraParam;
+	} 
+	if(this.last_name) {
+	  extraParam = encodeURIComponent(this.last_name);
+	  urlForPost += '&last_name='+extraParam;
+	}
+	if(this.phone) {
+	  extraParam = encodeURIComponent(this.phone);
+	  urlForPost += '&phone='+extraParam;
+	}
+        console.log('urlForPost=' + urlForPost);*/
 
         const response = await fetch(urlForPost, {
             method: 'POST',

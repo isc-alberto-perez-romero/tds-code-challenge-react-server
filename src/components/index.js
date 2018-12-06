@@ -149,7 +149,9 @@ export class ContactListApp extends React.Component {
 			e.target.elements.firstName.value = '';
 			e.target.elements.lastName.value = '';
 			e.target.elements.phone.value = '';
-			e.target.files[0].name = '';
+			if(e.target.files){
+				e.target.files[0].name = '';	
+			}
 			this.image = null;
 			this.dataSent = true;
 

@@ -15,6 +15,9 @@
 # config file (for GitHub upload)
 /src/config
 
+# ESLint
+.eslintrc.json
+
 # misc
 .DS_Store
 .env.local

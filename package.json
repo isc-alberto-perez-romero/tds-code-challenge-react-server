@@ -30,6 +30,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-plugin-react": "^7.11.1",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0"
   }

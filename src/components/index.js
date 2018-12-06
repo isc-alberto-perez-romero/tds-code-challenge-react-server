@@ -113,7 +113,7 @@ export class ContactListApp extends React.Component {
 	*								AddContactForm.
 	* @see Contact.uploadContactInformation()
 	*/
-	const addContact = async (e) => {
+	addContact = async (e) => {
 		// Prevent the app from reloading the page...
 		e.preventDefault();
 
@@ -180,7 +180,7 @@ export class ContactListApp extends React.Component {
 	* @param {Event} e The event that invoked this function, which would be
 	*										attached to an onChange listener in the AddContactForm.
 	*/
-	const handleImage = (e) => {
+	handleImage = (e) => {
 		this.image = e.target.files[0];
 		if (this.image) {
 
